@@ -14,7 +14,7 @@ public class TechJobs {
 
     private static Scanner in = new Scanner(System.in);
 
-    public static void main (String[] args) {
+    public static void main(String[] args) {
 
         // Initialize our field map with key/name pairs
         HashMap<String, String> columnChoices = new HashMap<>();
@@ -64,7 +64,7 @@ public class TechJobs {
                 String searchTerm = in.nextLine();
 
                 if (searchField.equals("all")) {
-                    System.out.println(JobData.findByValue(searchTerm));
+                    printJobs(JobData.findByValue(searchTerm));
                 } else {
                     printJobs(JobData.findByColumnAndValue(searchField, searchTerm));
                 }
@@ -106,7 +106,7 @@ public class TechJobs {
                 validChoice = true;
             }
 
-        } while(!validChoice);
+        } while (!validChoice);
 
         return choiceKeys[choiceIdx];
     }
@@ -114,16 +114,19 @@ public class TechJobs {
     // Print a list of jobs
     private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
 
-        Scanner scan = new Scanner(System.in);
-        String searchTerm = scan.nextLine();
-        if(!someJobs.contains(searchTerm)) {
+        if (someJobs.isEmpty()){
+            System.out.println("Sorry! No job matches!");
+        }
 
-            System.out.println("Sorry! No jobs were found!");
+        for (HashMap<String, String> job : someJobs) {
+            for (Map.Entry<String, String> entry : job.entrySet()) {
 
+                System.out.println(entry.getKey() + " : " + entry.getValue());
             }
-            for (HashMap<String, String> job : someJobs)
-                for (Map.Entry<String, String> entry : job.entrySet())
-                    System.out.println(entry.getKey() + " : " + entry.getValue());
+                    System.out.println("\n*****\n");
 
+        }
     }
 }
+
+
